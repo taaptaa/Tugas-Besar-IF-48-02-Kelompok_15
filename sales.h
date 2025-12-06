@@ -1,14 +1,14 @@
 #ifndef SALES_H_INCLUDED
 #define SALES_H_INCLUDED
 
-#include "mobil.h" // Parent wajib include Child
+#include "mobil.h" //
 #include <iostream>
 #include <string>
 using namespace std;
 
 #define next(P) P->next
 #define info(P) P->info
-#define child(P) P->mobil // Akses ke list child
+#define child(P) P->mobil
 
 struct infotypeSales {
     string idSales;
@@ -22,7 +22,6 @@ struct elmList_Sales {
     infotypeSales info;
     addressSales next;
 
-    // INI KUNCINYA: List Child ada di dalam Node Parent
     ListMobil mobil;
 };
 
@@ -34,12 +33,13 @@ void createListSales(ListSales &L);
 addressSales createElmSales(string id, string nama, string noTelp);
 void insertLastSales(ListSales &L, addressSales P);
 
-// Fungsi untuk menghapus Parent (Hati-hati, anaknya harus dihapus dulu!)
+
 void deleteFirstSales(ListSales &L, addressSales &P);
 void deleteParentAndChild(ListSales &L, string idSales);
 
-// Fungsi Utama Showroom
+
 void showAllData(ListSales L);
 addressSales searchSales(ListSales L, string idSales);
+// testing
 
 #endif
