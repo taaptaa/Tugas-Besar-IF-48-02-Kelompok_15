@@ -15,7 +15,16 @@ addressMobil createElmMobil(string merk, string tipe, string tahun, double harga
     prev(P) = NULL;
     return P;
 }
-
+void insertFirstMobil(ListMobil &L, addressMobil P) {
+    if (first(L) == NULL) {
+        first(L) = P;
+        last(L) = P;
+    } else {
+        next(P) = first(L);
+        prev(first(L)) = P;
+        first(L) = P;
+    }
+}
 void insertLastMobil(ListMobil &L, addressMobil P) {
     if (L.first == NULL) {
         L.first = P;
