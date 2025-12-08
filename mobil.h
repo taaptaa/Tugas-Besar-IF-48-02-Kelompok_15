@@ -33,10 +33,14 @@ struct ListMobil {
 // Primitif Dasar
 void createListMobil(ListMobil &L);
 addressMobil createElmMobil(string merk, string tipe, string tahun, double harga);
+void insertFirstMobil(ListMobil &L, addressMobil P)
 void insertLastMobil(ListMobil &L, addressMobil P);
+void insertAfterMobil(ListMobil &L, addressMobil Prec, addressMobil P)
 void deleteFirstMobil(ListMobil &L, addressMobil &P);
 void deleteLastMobil(ListMobil &L, addressMobil &P);
 void deleteAfterMobil(addressMobil Prec, addressMobil &P);
+addressMobil findElemenMobil(ListMobil L, string idMobil);
 void showMobil(ListMobil L);
 
+#endif
 #endif
