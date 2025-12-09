@@ -1,64 +1,58 @@
 #include "header.h"
-
 using namespace std;
 
-void insertFirstSales(ListSales &L, addressSales P) {
-    if (L.first == NULL) {
-        L.first = P;
+
+addressMobil createElmMobil(infotypeMobil data) {
+    addressMobil P = new elmList_Mobil;
+    info(P) = data;
+    next(P) = NULL;
+    prev(P) = NULL;
+    return P;
+}
+
+void insertFirstMobil(addressSales S, addressMobil M) {
+    if (child(S) == NULL) {
+        child(S) = M;
     } else {
-        next(P) = L.first;
-        L.first = P;
+        next(M) = child(S);
+        prev(child(S)) = M;
+        child(S) = M;
     }
 }
 
-void insertLastSales(ListSales &L, addressSales P) {
-    if (L.first == NULL) {
-        L.first = P;
+
+void insertLastMobil(addressSales S, addressMobil M) {
+    if (child(S) == NULL) {
+        child(S) = M;
     } else {
-        addressSales Q = L.first;
+        addressMobil Q = child(S);
         while (next(Q) != NULL) {
             Q = next(Q);
         }
-        next(Q) = P;
+        next(Q) = M;
+        prev(M) = Q;
     }
 }
 
-void insertAfterSales(ListSales &L, addressSales Prec, addressSales P) {
-    if (Prec != NULL) {
-        next(P) = next(Prec);
-        next(Prec) = P;
-    }
+
+void insertAfterMobil(addressSales S, addressMobil Prec, addressMobil M) {
+    if (Prec == NULL) return;
+
+    next(M) = next(Prec);
+    prev(M) = Prec;
+
+    if (next(Prec) != NULL)
+        prev(next(Prec)) = M;
+
+    next(Prec) = M;
 }
 
-void deleteFirstSales(ListSales &L, addressSales &P) {
-    if (L.first != NULL) {
-        P = L.first;
-        L.first = next(P);
-        next(P) = NULL;
-    }
-}
+addressMobil findMobilPadaSales(addressSales S, string idMobil) {
+    addressMobil M = child(S);
 
-void deleteLastSales(ListSales &L, addressSales &P) {
-    if (L.first != NULL) {
-        if (next(L.first) == NULL) {  // hanya 1 elemen
-            P = L.first;
-            L.first = NULL;
-        } else {
-            addressSales Q = L.first;
-            while (next(next(Q)) != NULL) {
-                Q = next(Q);
-            }
-            P = next(Q);
-            next(Q) = NULL;
-        }
-        next(P) = NULL;
+    while (M != NULL) {
+        if (info(M).idMobil == idMobil) return M;
+        M = next(M);
     }
-}
-
-void deleteAfterSales(ListSales &L, addressSales Prec, addressSales &P) {
-    if (Prec != NULL && next(Prec) != NULL) {
-        P = next(Prec);
-        next(Prec) = next(P);
-        next(P) = NULL;
-    }
+    return NULL;
 }
