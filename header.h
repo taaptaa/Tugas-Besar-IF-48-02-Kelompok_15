@@ -5,22 +5,15 @@
 #include <string>
 using namespace std;
 
-/* ============================================================
-   MACRO
-   ============================================================ */
 #define next(P) P->next
 #define prev(P) P->prev
 #define info(P) P->info
 #define child(P) P->child
 
-/* ============================================================
-   FORWARD DECLARATION
-   (Diperlukan agar addressSales bisa digunakan di fungsi mobil)
-   ============================================================ */
 typedef struct elmList_Sales* addressSales;
 
 /* ============================================================
-   BAGIAN MOBIL (Child DLL)
+   BAGIAN MOBIL
    ============================================================ */
 struct infotypeMobil {
     string merk;
@@ -39,7 +32,6 @@ struct elmList_Mobil {
     addressMobil prev;
 };
 
-/* ---- FUNGSI MOBIL ---- */
 addressMobil createElmMobil(infotypeMobil data);
 
 void insertFirstMobil(addressSales S, addressMobil M);
@@ -56,7 +48,7 @@ addressMobil findMobilPadaSales(addressSales S, string idMobil);
 void viewMobilSales(addressSales S);
 
 /* ============================================================
-   BAGIAN SALES (Parent SLL)
+   BAGIAN SALES 
    ============================================================ */
 struct infotypeSales {
     string idSales;
@@ -76,7 +68,7 @@ struct ListSales {
     addressSales first;
 };
 
-/* ---- FUNGSI SALES ---- */
+
 void createListSales(ListSales &L);
 addressSales createElmSales(infotypeSales data);
 
