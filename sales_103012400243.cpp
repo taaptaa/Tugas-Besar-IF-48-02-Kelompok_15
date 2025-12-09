@@ -10,7 +10,7 @@ addressSales createElmSales(infotypeSales data) {
     addressSales P = new elmList_Sales;
     info(P) = data;
     next(P) = NULL;
-    child(P) = NULL;   // ❗ child harus null
+    child(P) = NULL;  
     return P;
 }
 
