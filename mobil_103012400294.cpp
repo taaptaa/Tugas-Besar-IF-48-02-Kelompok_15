@@ -1,65 +1,64 @@
-#include "mobil.h"
+#include "header.h"
 
-void createListMobil(ListMobil &L) {
-    L.first = NULL;
-    L.last = NULL;
-}
+using namespace std;
 
-addressMobil createElmMobil(string merk, string tipe, string tahun, double harga) {
-    addressMobil P = new elmList_Mobil;
-    info(P).merk = merk;
-    info(P).tipe = tipe;
-    info(P).tahun = tahun;
-    info(P).harga = harga;
-    next(P) = NULL;
-    prev(P) = NULL;
-    return P;
-}
-void insertFirstMobil(ListMobil &L, addressMobil P) {
-    if (first(L) == NULL) {
-        first(L) = P;
-        last(L) = P;
-    } else {
-        next(P) = first(L);
-        prev(first(L)) = P;
-        first(L) = P;
-    }
-}
-void insertLastMobil(ListMobil &L, addressMobil P) {
+void insertFirstSales(ListSales &L, addressSales P) {
     if (L.first == NULL) {
         L.first = P;
-        L.last = P;
     } else {
-        prev(P) = L.last;
-        next(L.last) = P;
-        L.last = P;
+        next(P) = L.first;
+        L.first = P;
     }
 }
 
-// Implementasikan deleteFirst, deleteLast, deleteAfter sesuai materi DLL
-void deleteFirstMobil(ListMobil &L, addressMobil &P) {
-    if(L.first != NULL){
-        P = L.first;
-        if(L.first == L.last){
-            L.first = NULL;
-            L.last = NULL;
-        } else {
-            L.first = next(P);
-            prev(L.first) = NULL;
-            next(P) = NULL;
+void insertLastSales(ListSales &L, addressSales P) {
+    if (L.first == NULL) {
+        L.first = P;
+    } else {
+        addressSales Q = L.first;
+        while (next(Q) != NULL) {
+            Q = next(Q);
         }
+        next(Q) = P;
     }
 }
 
-void showMobil(ListMobil L) {
-    addressMobil P = L.first;
-    if (P == NULL) {
-        cout << "   (Tidak ada mobil yang dipromosikan)" << endl;
-    }
-    while (P != NULL) {
-        cout << "   -> " << info(P).merk << " " << info(P).tipe
-             << " (" << info(P).tahun << ") - Rp" << info(P).harga << endl;
-        P = next(P);
+void insertAfterSales(ListSales &L, addressSales Prec, addressSales P) {
+    if (Prec != NULL) {
+        next(P) = next(Prec);
+        next(Prec) = P;
     }
 }
 
+void deleteFirstSales(ListSales &L, addressSales &P) {
+    if (L.first != NULL) {
+        P = L.first;
+        L.first = next(P);
+        next(P) = NULL;
+    }
+}
+
+void deleteLastSales(ListSales &L, addressSales &P) {
+    if (L.first != NULL) {
+        if (next(L.first) == NULL) {  // hanya 1 elemen
+            P = L.first;
+            L.first = NULL;
+        } else {
+            addressSales Q = L.first;
+            while (next(next(Q)) != NULL) {
+                Q = next(Q);
+            }
+            P = next(Q);
+            next(Q) = NULL;
+        }
+        next(P) = NULL;
+    }
+}
+
+void deleteAfterSales(ListSales &L, addressSales Prec, addressSales &P) {
+    if (Prec != NULL && next(Prec) != NULL) {
+        P = next(Prec);
+        next(Prec) = next(P);
+        next(P) = NULL;
+    }
+}
