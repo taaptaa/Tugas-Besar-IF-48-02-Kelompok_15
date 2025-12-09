@@ -30,9 +30,7 @@ void insertAfterSales(ListSales &L, addressSales Prec, addressSales P) {
     }
 }
 
-/* ============================================================
-   DELETE SALES (SLL)
-   ============================================================ */
+
 void deleteFirstSales(ListSales &L, addressSales &P) {
     if (L.first != NULL) {
         P = L.first;
@@ -43,7 +41,7 @@ void deleteFirstSales(ListSales &L, addressSales &P) {
 
 void deleteLastSales(ListSales &L, addressSales &P) {
     if (L.first != NULL) {
-        if (next(L.first) == NULL) {  // hanya 1 elemen
+        if (next(L.first) == NULL) {  
             P = L.first;
             L.first = NULL;
         } else {
