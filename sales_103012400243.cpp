@@ -10,7 +10,7 @@ addressSales createElmSales(infotypeSales data) {
     addressSales P = new elmList_Sales;
     info(P) = data;
     next(P) = NULL;
-    child(P) = NULL;  
+    child(P) = NULL;
     return P;
 }
 
@@ -18,8 +18,9 @@ addressSales findElemenSales(ListSales L, string idSales) {
     addressSales P = L.first;
 
     while (P != NULL) {
-        if (info(P).idSales == idSales)
+        if (info(P).idSales == idSales) {
             return P;
+        }
         P = next(P);
     }
     return NULL;
@@ -33,94 +34,96 @@ void viewSales(ListSales L) {
         return;
     }
 
+    cout << "\n=== DAFTAR SALES ===\n";
     while (S != NULL) {
-        cout << "\n=============================================\n";
-        cout << "ID Sales  : " << info(S).idSales << endl;
-        cout << "Nama      : " << info(S).nama << endl;
-        cout << "No Telp   : " << info(S).noTelp << endl;
-
-        cout << "Mobil yang dijual:\n";
-        if (child(S) == NULL) {
-            cout << "  (Tidak ada data mobil)\n";
-        } else {
-            addressMobil M = child(S);
-            while (M != NULL) {
-                cout << "  - " << info(M).merk
-                     << " | ID: " << info(M).idMobil
-                     << " | Terjual: " << info(M).jumlahTerjual << endl;
-                M = next(M);
-            }
-        }
-
+        cout << "ID   : " << info(S).idSales << endl;
+        cout << "Nama : " << info(S).nama << endl;
+        cout << "Telp : " << info(S).noTelp << endl;
+        cout << "---------------------------\n";
         S = next(S);
     }
 }
 
-    void hitungMobilTerjualPerMerk(ListSales L) {
-        cout << "\n=== TOTAL MOBIL TERJUAL PER MERK ===\n";
+void hitungMobilTerjualPerMerk(ListSales L) {
+    cout << "\n=== TOTAL MOBIL TERJUAL PER MERK ===\n";
 
-        // Kita lakukan perhitungan manual (tanpa map)
-        string merkList[100];
-        int totalList[100];
-        int n = 0;
+    string merkList[100];
+    int totalList[100];
+    int n = 0;
 
-        addressSales S = L.first;
+    addressSales S = L.first;
 
-        while (S != NULL) {
-            addressMobil M = child(S);
+    while (S != NULL) {
+        addressMobil M = child(S);
 
-            while (M != NULL) {
-                bool found = false;
-                for (int i = 0; i < n; i++) {
-                    if (merkList[i] == info(M).merk) {
-                        totalList[i] += info(M).jumlahTerjual;
-                        found = true;
-                    }
+        while (M != NULL) {
+            bool found = false;
+            for (int i = 0; i < n; i++) {
+                if (merkList[i] == info(M).merk) {
+                    totalList[i] += info(M).jumlahTerjual;
+                    found = true;
+                    break;
                 }
-                if (!found) {
-                    merkList[n] = info(M).merk;
-                    totalList[n] = info(M).jumlahTerjual;
-                    n++;
-                }
-                M = next(M);
-            }
-            S = next(S);
-        }
-
-        if (n == 0) {
-            cout << "Belum ada data mobil.\n";
-            return;
-        }
-
-        for (int i = 0; i < n; i++) {
-            cout << merkList[i] << " : " << totalList[i] << " terjual\n";
-        }
-    }
-
-    void hitungScoreSales(ListSales L) {
-        cout << "\n=== SCORE SALES (Berdasarkan Total Terjual) ===\n";
-
-        if (L.first == NULL) {
-            cout << "Data sales kosong.\n";
-            return;
-        }
-
-        addressSales S = L.first;
-
-        while (S != NULL) {
-            int total = 0;
-
-            addressMobil M = child(S);
-            while (M != NULL) {
-                total += info(M).jumlahTerjual;
-                M = next(M);
             }
 
-            cout << "Sales " << info(S).nama
-                 << " (ID: " << info(S).idSales << ")"
-                 << " total terjual: " << total << endl;
+            if (!found) {
+                merkList[n] = info(M).merk;
+                totalList[n] = info(M).jumlahTerjual;
+                n++;
+            }
 
-            S = next(S);
+            M = next(M);
         }
+        S = next(S);
     }
 
+    if (n == 0) {
+        cout << "Belum ada data mobil.\n";
+        return;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << merkList[i] << " : " << totalList[i] << " unit terjual\n";
+    }
+}
+
+void hitungScoreSales(ListSales L) {
+    cout << "\n=== SCORE SALES (BERDASARKAN TOTAL TERJUAL) ===\n";
+
+    if (L.first == NULL) {
+        cout << "Data sales kosong.\n";
+        return;
+    }
+
+    addressSales S = L.first;
+    addressSales bestSales = NULL;
+    int maxTotal = -1;
+
+    while (S != NULL) {
+        int total = 0;
+        addressMobil M = child(S);
+
+        while (M != NULL) {
+            total += info(M).jumlahTerjual;
+            M = next(M);
+        }
+
+        cout << "Sales " << info(S).nama
+             << " (ID: " << info(S).idSales << ")"
+             << " -> Total terjual: " << total << endl;
+
+        if (total > maxTotal) {
+            maxTotal = total;
+            bestSales = S;
+        }
+
+        S = next(S);
+    }
+
+    if (bestSales != NULL) {
+        cout << "\n=== SALES TERBAIK ===\n";
+        cout << "Nama  : " << info(bestSales).nama << endl;
+        cout << "ID    : " << info(bestSales).idSales << endl;
+        cout << "Total : " << maxTotal << " unit terjual\n";
+    }
+}
