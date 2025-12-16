@@ -1,6 +1,6 @@
 #include "header.h"
 
-void menuAdmin(){
+void menuAdmin(ListSales &L){
     int option = -99;
     while (option != 0) {
         system("cls");
@@ -14,14 +14,15 @@ void menuAdmin(){
 
         switch(option) {
            case 1:
-              menuParent();
+              menuParent(L);   
               break;
            case 2:
-              menuChild();
+              menuChild(L);    
               break;
         }
     }
 }
+
 
 
 
@@ -37,7 +38,7 @@ void menuParent(ListSales &L){
         cout << "|| 5. Delete Last Sales            ||\n";
         cout << "|| 6. Delete After Sales           ||\n";
         cout << "|| 7. View Sales                   ||\n";
-        cout << "|| 8. Lihat Score Sales            ||\n"; // 🔥 DITAMBAHKAN
+        cout << "|| 8. Lihat Score Sales            ||\n"; 
         cout << "|| 0. Back                         ||\n";
         cout << "====================================\n";
         cout << "Choose your option : ";
@@ -118,7 +119,7 @@ void menuParent(ListSales &L){
     }
 }
 
-void menuChild(){
+void menuChild(ListSales &L){
     int option = -99;
     while (option != 0) {
         system("cls");
@@ -153,8 +154,12 @@ void menuChild(){
                     cout << "Terjual : "; cin >> data.jumlahTerjual;
                     M = createElmMobil(data);
                     insertFirstMobil(S, M);
+                } else {
+                    cout << "Sales tidak ditemukan.\n";
+                    system("pause");
                 }
                 break;
+
 
             case 2:
                 cout << "ID Sales: "; cin >> idSales;
