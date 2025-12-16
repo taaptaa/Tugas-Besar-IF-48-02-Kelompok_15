@@ -24,12 +24,11 @@ void insertLastSales(ListSales &L, addressSales P) {
 }
 
 void insertAfterSales(ListSales &L, addressSales Prec, addressSales P) {
-    if (Prec != NULL) {
+    if (Prec != NULL && P != NULL) {
         next(P) = next(Prec);
         next(Prec) = P;
     }
 }
-
 
 void deleteFirstSales(ListSales &L, addressSales &P) {
     if (L.first != NULL) {
@@ -41,7 +40,7 @@ void deleteFirstSales(ListSales &L, addressSales &P) {
 
 void deleteLastSales(ListSales &L, addressSales &P) {
     if (L.first != NULL) {
-        if (next(L.first) == NULL) {  
+        if (next(L.first) == NULL) { 
             P = L.first;
             L.first = NULL;
         } else {
