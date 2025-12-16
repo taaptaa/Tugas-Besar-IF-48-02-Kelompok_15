@@ -14,10 +14,14 @@ void deleteFirstMobil(addressSales S, addressMobil &M) {
 }
 
 void deleteLastMobil(addressSales S, addressMobil &M) {
-    M = child(S);
-    if (M == NULL) return;
+    if (child(S) == NULL) {
+        M = NULL;
+        return;
+    }
 
-    // kalau elemen cuma satu
+    M = child(S);
+
+    // satu elemen
     if (next(M) == NULL) {
         child(S) = NULL;
     } else {
@@ -26,20 +30,29 @@ void deleteLastMobil(addressSales S, addressMobil &M) {
         }
         next(prev(M)) = NULL;
     }
+
     prev(M) = next(M) = NULL;
+    delete M;   
 }
+
 
 void deleteAfterMobil(addressSales S, addressMobil Prec, addressMobil &M) {
-    if (Prec == NULL) return;
-    M = next(Prec);
-    if (M != NULL) {
-        next(Prec) = next(M);
-        if (next(M) != NULL)
-            prev(next(M)) = Prec;
-
-        next(M) = prev(M) = NULL;
+    if (Prec == NULL || next(Prec) == NULL) {
+        M = NULL;
+        return;
     }
+
+    M = next(Prec);
+    next(Prec) = next(M);
+
+    if (next(M) != NULL)
+        prev(next(M)) = Prec;
+
+    next(M) = prev(M) = NULL;
+    delete M;
 }
+
+
 
 void deleteMobilFromSales(addressSales S, string idMobil) {
     addressMobil M = child(S);
@@ -47,13 +60,12 @@ void deleteMobilFromSales(addressSales S, string idMobil) {
     while (M != NULL) {
         if (info(M).idMobil == idMobil) {
 
-            // kasus delete first
             if (M == child(S)) {
                 child(S) = next(M);
                 if (child(S) != NULL)
                     prev(child(S)) = NULL;
             }
-            // kasus delete tengah/last
+            
             else {
                 prev(M)->next = next(M);
                 if (next(M) != NULL)
@@ -88,4 +100,3 @@ void viewMobilSales(addressSales S) {
         M = next(M);
     }
 }
-
