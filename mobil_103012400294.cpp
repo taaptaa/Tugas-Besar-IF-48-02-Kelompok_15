@@ -1,7 +1,6 @@
 #include "header.h"
 using namespace std;
 
-
 addressMobil createElmMobil(infotypeMobil data) {
     addressMobil P = new elmList_Mobil;
     info(P) = data;
@@ -9,6 +8,7 @@ addressMobil createElmMobil(infotypeMobil data) {
     prev(P) = NULL;
     return P;
 }
+
 
 void insertFirstMobil(addressSales S, addressMobil M) {
     if (child(S) == NULL) {
@@ -19,7 +19,6 @@ void insertFirstMobil(addressSales S, addressMobil M) {
         child(S) = M;
     }
 }
-
 
 void insertLastMobil(addressSales S, addressMobil M) {
     if (child(S) == NULL) {
@@ -33,7 +32,6 @@ void insertLastMobil(addressSales S, addressMobil M) {
         prev(M) = Q;
     }
 }
-
 
 void insertAfterMobil(addressSales S, addressMobil Prec, addressMobil M) {
     if (Prec == NULL) return;
