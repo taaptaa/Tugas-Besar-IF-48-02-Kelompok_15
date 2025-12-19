@@ -8,7 +8,6 @@ void welcomeScreen() {
     cout << "\t||                                                              ||\n";
     cout << "\t||               APLIKASI MANAJEMEN DATA SHOWROOM               ||\n";
     cout << "\t||             (Implementasi Multi-Linked List C++)             ||\n";
-
     cout << "\t||                                                              ||\n";
     cout << "\t==================================================================\n";
     cout << "\n\n";
