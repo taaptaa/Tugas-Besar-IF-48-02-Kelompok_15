@@ -2,6 +2,9 @@
 
 using namespace std;
 
+/* ============================================================
+   CREATE LIST & CREATE ELEM
+   ============================================================ */
 void createListSales(ListSales &L) {
     L.first = NULL;
 }
@@ -14,6 +17,9 @@ addressSales createElmSales(infotypeSales data) {
     return P;
 }
 
+/* ============================================================
+   SEARCH SALES
+   ============================================================ */
 addressSales findElemenSales(ListSales L, string idSales) {
     addressSales P = L.first;
 
@@ -26,16 +32,27 @@ addressSales findElemenSales(ListSales L, string idSales) {
     return NULL;
 }
 
+/* ============================================================
+   VIEW ALL SALES (PARENT ONLY)
+   ============================================================ */
 void viewSales(ListSales L) {
     addressSales S = L.first;
 
     if (S == NULL) {
-        cout << "Data sales kosong.\n";
+        cout << "============================================\n";
+        cout << "            DATA SALES KOSONG               \n";
+        cout << "============================================\n";
         return;
     }
 
-    cout << "\n=== DAFTAR SALES ===\n";
+    cout << "============================================\n";
+    cout << "               DAFTAR SALES                 \n";
+    cout << "============================================\n";
+
+    int no = 1;
+
     while (S != NULL) {
+        cout << no++ << ".\n";
         cout << "ID   : " << info(S).idSales << endl;
         cout << "Nama : " << info(S).nama << endl;
         cout << "Telp : " << info(S).noTelp << endl;
@@ -44,6 +61,9 @@ void viewSales(ListSales L) {
     }
 }
 
+/* ============================================================
+   HITUNG TOTAL MOBIL TERJUAL PER MERK
+   ============================================================ */
 void hitungMobilTerjualPerMerk(ListSales L) {
     cout << "\n=== TOTAL MOBIL TERJUAL PER MERK ===\n";
 
@@ -87,17 +107,25 @@ void hitungMobilTerjualPerMerk(ListSales L) {
     }
 }
 
+/* ============================================================
+   HITUNG SCORE SALES (STUDI KASUS)
+   ============================================================ */
 void hitungScoreSales(ListSales L) {
-    cout << "\n=== SCORE SALES (BERDASARKAN TOTAL TERJUAL) ===\n";
-
     if (L.first == NULL) {
-        cout << "Data sales kosong.\n";
+        cout << "============================================\n";
+        cout << "            DATA SALES KOSONG               \n";
+        cout << "============================================\n";
         return;
     }
+
+    cout << "========================================================\n";
+    cout << "     SCORE SALES (BERDASARKAN TOTAL TERJUAL)            \n";
+    cout << "========================================================\n";
 
     addressSales S = L.first;
     addressSales bestSales = NULL;
     int maxTotal = -1;
+    int no = 1;
 
     while (S != NULL) {
         int total = 0;
@@ -108,9 +136,12 @@ void hitungScoreSales(ListSales L) {
             M = next(M);
         }
 
-        cout << "Sales " << info(S).nama
-             << " (ID: " << info(S).idSales << ")"
-             << " -> Total terjual: " << total << endl;
+
+        cout << no++ << ".\n";
+        cout << " ID    : " << info(S).idSales << endl;
+        cout << " Nama  : " << info(S).nama << endl;
+        cout << " Total : " << total << " unit\n";
+        cout << "--------------------------------------------------------\n";
 
         if (total > maxTotal) {
             maxTotal = total;
@@ -121,9 +152,12 @@ void hitungScoreSales(ListSales L) {
     }
 
     if (bestSales != NULL) {
-        cout << "\n=== SALES TERBAIK ===\n";
-        cout << "Nama  : " << info(bestSales).nama << endl;
-        cout << "ID    : " << info(bestSales).idSales << endl;
-        cout << "Total : " << maxTotal << " unit terjual\n";
+        cout << "========================================================\n";
+        cout << "                  SALES TERBAIK                         \n";
+        cout << "========================================================\n";
+        cout << " Nama  : " << info(bestSales).nama << endl;
+        cout << " ID    : " << info(bestSales).idSales << endl;
+        cout << " Total : " << maxTotal << " unit terjual\n";
+        cout << "========================================================\n";
     }
 }
